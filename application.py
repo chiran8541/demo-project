@@ -20,7 +20,7 @@ class Drink(db.Model):
 @app.route("/")
 #home page
 def hello_world():
-  return "<p>Hello, World how!</p>"
+  return "<p>Hello, Wold how!</p>"
 
 @app.route('/drinks')
 def get_drinks():
