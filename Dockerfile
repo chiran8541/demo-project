@@ -1,15 +1,7 @@
-FROM python:3.7-slim
-
-COPY ./requirements.txt /app/requirements.txt
-
-WORKDIR /app
-
-RUN pip install -r requirements.txt
-
+FROM python:alpine3.7
 COPY . /app
-
-EXPOSE 8081 
-
+WORKDIR /app
+RUN pip install -r requirements.txt
+EXPOSE 5000
 ENTRYPOINT [ "python" ]
-
-CMD [ "app.py" ]
+CMD [ "demo.py" ]
