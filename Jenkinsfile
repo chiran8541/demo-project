@@ -3,7 +3,7 @@ pipeline {
     environment {
         AWS_ACCOUNT_ID="188274256193"
         AWS_DEFAULT_REGION="us-east-1" 
-        IMAGE_REPO_NAME="demojenkinsrepo"
+        IMAGE_REPO_NAME="demoapp"
         IMAGE_TAG="latest"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
     }
@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                 sh "aws configure list"
-                sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 188274256193.dkr.ecr.us-east-1.amazonaws.com"
+                sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com"
                 }
                  
             }
