@@ -18,7 +18,7 @@ pipeline {
                             currentbuildno = currentBuild.number
             sh """
                     sed -i -e 's#${buildno}#${currentbuildno}#' update-td.json
-                    sudo cp update-td.json /etc/
+                    cp update-td.json /etc/
 		    chmod 777 /etc/
                     cd /etc
                     dockerImage = docker.build "${IMAGE_REPO_NAME}:V-${BUILD_NUMBER}"
