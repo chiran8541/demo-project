@@ -18,7 +18,8 @@ pipeline {
                             currentbuildno = currentBuild.number
             sh """
                     sed -i -e 's#${buildno}#${currentbuildno}#' update-td.json
-                    dockerImage = docke build -t "${IMAGE_REPO_NAME}:V-${BUILD_NUMBER}" .
+		    pwd
+                    dockerImage = docker build -t "${IMAGE_REPO_NAME}:V-${BUILD_NUMBER}" .
                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com"
                     docker tag ${IMAGE_REPO_NAME}:V-${BUILD_NUMBER} ${REPOSITORY_URI}:V-${BUILD_NUMBER}"
                     docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:V-${BUILD_NUMBER}"
