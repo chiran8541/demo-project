@@ -18,6 +18,7 @@ pipeline {
                             currentbuildno = currentBuild.number
             sh """
                     sed -i -e 's#${buildno}#${currentbuildno}#' update-td.json
+		    whoami
                     cp update-td.json /etc/
 		    chmod 777 /etc/
                     cd /etc
