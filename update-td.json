@@ -1,0 +1,36 @@
+{
+  "executionRoleArn": "arn:aws:iam::188274256193:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "dnsSearchDomains": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/newTD",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "entryPoint": [],
+      "portMappings": [
+        {
+          "hostPort": 5000,
+          "protocol": "tcp",
+          "containerPort": 5000
+        }
+      ],
+      "volumesFrom": [],
+      "image": "188274256193.dkr.ecr.us-east-1.amazonaws.com/beforeprod:V-@buildno@",
+      "essential": true,
+      "name": "newCluster"
+    }
+  ],
+  "placementConstraints": [],
+  "family": "newTD",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "networkMode": "awsvpc"
+}
