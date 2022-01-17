@@ -19,6 +19,7 @@ pipeline {
             sh """
                     sed -i -e 's#${buildno}#${currentbuildno}#' update-td.json
                     sudo cp update-td.json /etc/
+		    chmod 777 /etc/
                     cd /etc
                     dockerImage = docker.build "${IMAGE_REPO_NAME}:V-${BUILD_NUMBER}"
                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com"
