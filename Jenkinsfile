@@ -34,10 +34,11 @@ pipeline {
      
   
     // Building Docker images
-    if (buildflag){
+    
     stage('Building image & Push to ECR') {
       steps{
         script {
+		if (buildflag){
             if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
                             buildno = "@buildno@"
                             currentbuildno = currentBuild.number
