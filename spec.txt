@@ -1,0 +1,2 @@
+build_to_ECR = false
+deploy_to_ECS = false
