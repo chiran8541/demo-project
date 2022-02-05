@@ -14,8 +14,7 @@ pipeline {
     stage('Building image & Push to ECR') {
 	    environment { 
 		    specFpath = "${workspace}/"
-	            build_flag = getParam('build_to_ECR', build, specFpath)
-                #AN_ACCESS_KEY = credentials('my-predefined-secret-text') 
+	            build_flag = getParam('build_to_ECR', build, specFpath) 
             }
 	    
       steps{
