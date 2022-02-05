@@ -14,7 +14,9 @@ pipeline {
     stage('Building image & Push to ECR') {
 	    steps{
 		    script {
-                    env.FILENAME = readFile 'spec.yml'
+			    def constants = load 'flag.groovy'
+                            def build_flag = constants.build_to_ECR
+                    env.FILENAME = readFile 'flag.groovy'
 			    
                 }
 		    echo "${env.FILENAME['build_to_ECR']}"
