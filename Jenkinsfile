@@ -11,6 +11,7 @@ pipeline {
 	    
 	    stage('loading envfor flag') {
 		    steps{
+			    sh '''
 			    mkdir -p /tmp/demo
 		    	    cp ${workspace}/spec.yml /tmp/demo
 		            cp ${workspace}/Dockerfile /tmp/demp
@@ -19,6 +20,8 @@ pipeline {
 			    def deployflag = false
 			    buildflag= getParam('build_to_ECR','build',specFilePath)
 			    deployflag= getParam('deploy_to_ECS','build',specFilePath)
+			    
+			    '''
 			    
 		    }
 	    }
