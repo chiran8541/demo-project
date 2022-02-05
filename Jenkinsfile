@@ -1,7 +1,8 @@
+def specFpath = "${workspace}/"
+def build_flag = getParam('build_to_ECR', build, specFpath)
 pipeline {
     agent any
-	def specFpath = "${workspace}/"
-	def build_flag = getParam('build_to_ECR', build, specFpath)
+	
     environment {
         AWS_ACCOUNT_ID="188274256193"
         AWS_DEFAULT_REGION="us-east-1" 
