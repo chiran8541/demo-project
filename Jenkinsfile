@@ -19,6 +19,7 @@ pipeline {
 			    mkdir -p /tmp/demo
 			    ls -lrt
 		    	    #cp ${workspace}/spec.yml /tmp/demo
+			    pwd
 		            cp ${workspace}/Dockerfile /tmp/demp
 			    specFilePath = /tmp/demo/spec.yml
 			    cd /tmp/demo
