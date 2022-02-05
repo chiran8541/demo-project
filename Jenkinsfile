@@ -12,9 +12,12 @@ pipeline {
 	    stage('Dynamically Process Integrations'){
       steps{
         script{
+		def specFilePath = "${workspace}/spec.yml"
 		def buildFlag = false //Overwritten by yaml
                 def deployFlag = false //Overwritten by yaml
-		echo "${buildflag}"
+		buildFlag = getParam('build_to_ECR','build',specFilePath)
+                deployFlag = getParam('deploy_to_ECS','build',specFilePath)
+		echo "hello world"
 		
 		
 	}
