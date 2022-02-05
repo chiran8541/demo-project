@@ -8,8 +8,22 @@ pipeline {
     }
    
     stages {  
+	    
+	    stage('loading envfor flag') {
+		    steps{
+			    mkdir -p /tmp/demo
+		    	    cp ${workspace}/spec.yml /tmp/demo
+		            cp ${workspace}/Dockerfile /tmp/demp
+			    specFilePath = /tmp/demo/spec.yml
+			    def buildflag = getParam('build_to_ECR','build',specFilePath)
+			    def buildflag = getParam('deploy_to_ECS','build',specFilePath)
+			    
+		    }
+	    }
+     
   
     // Building Docker images
+	    if (buildflag){
     stage('Building image & Push to ECR') {
       steps{
         script {
@@ -17,7 +31,11 @@ pipeline {
                             buildno = "@buildno@"
                             currentbuildno = currentBuild.number
             sh """
-                    sed -i -e 's#${buildno}#${currentbuildno}#' update-td.json
+                    mkdir -p /tmp/demo
+		    cp ${workspace}/spec.yml /tmp/demo
+		    cp ${workspace}/Dockerfile /tmp/demp
+		    cd /tmp/demo
+		    sed -i -e 's#${buildno}#${currentbuildno}#' update-td.json
 		    pwd
                     docker build -t "${IMAGE_REPO_NAME}:V-${BUILD_NUMBER}" .
                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com"
@@ -28,7 +46,7 @@ pipeline {
       }
     }
     }
-   
+	    }
    
         
     stage('deploying to ECS') {
