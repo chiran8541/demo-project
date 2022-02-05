@@ -14,7 +14,7 @@ pipeline {
     // Building Docker images
     stage('Building image & Push to ECR') {
 	   build_flag = readProperties file: "spec.yml"
-	    echo "the flag value is ${build_flag['build_to_ECR']}"
+	    echo """ the flag value is ${build_flag['build_to_ECR']} """
     }
 	'''    
       steps{
