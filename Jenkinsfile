@@ -16,6 +16,8 @@ pipeline {
 		    	    cp ${workspace}/spec.yml /tmp/demo
 		            cp ${workspace}/Dockerfile /tmp/demp
 			    specFilePath = /tmp/demo/spec.yml
+			    cd /tmp/demo
+			    ls -lrt
 			    '''
 	    }
 	    }
