@@ -1,5 +1,3 @@
-def specFpath = "${workspace}/"
-def build_flag = getParam('build_to_ECR', build, specFpath)
 pipeline {
     agent any
 	
@@ -14,6 +12,8 @@ pipeline {
   
     // Building Docker images
     stage('Building image & Push to ECR') {
+	    def specFpath = "${workspace}/"
+	    def build_flag = getParam('build_to_ECR', build, specFpath)
       steps{
         script {
 		if(build_flag){
