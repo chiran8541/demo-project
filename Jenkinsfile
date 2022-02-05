@@ -8,6 +8,11 @@ pipeline {
     }
    
     stages {  
+	    stage('first-stage') {
+		    steps{
+			    sh "echo hello"
+		    }
+	    }
 	    stage('pre-build') {
 		    steps {
 		     sh '''
