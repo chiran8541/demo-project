@@ -30,6 +30,8 @@ pipeline {
 			    
 			    
 		    }
+		    }
+	    }
 		    
      
   
@@ -43,9 +45,7 @@ pipeline {
                             buildno = "@buildno@"
                             currentbuildno = currentBuild.number
             sh """
-                    mkdir -p /tmp/demo
-		    cp ${workspace}/spec.yml /tmp/demo
-		    cp ${workspace}/Dockerfile /tmp/demp
+                    
 		    cd /tmp/demo
 		    sed -i -e 's#${buildno}#${currentbuildno}#' update-td.json
 		    pwd
@@ -60,8 +60,7 @@ pipeline {
     }
 	    }
    
-	    }  
-	    }
+	    
     stage('deploying to ECS') {
         environment {
         CLUSTER_NAME = "newCluster"
