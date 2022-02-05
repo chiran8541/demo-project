@@ -28,7 +28,7 @@ pipeline {
     stage('Building image & Push to ECR') {
       steps{
         script {
-            if(buildflag != "false") {
+            if(buildflag == ['true']) {
                 if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
                             buildno = "@buildno@"
                             currentbuildno = currentBuild.number
@@ -59,7 +59,7 @@ pipeline {
         }
             steps{
                 script {
-                    if(deployflag != "false") {
+                    if(deployflag == ['true']) {
 
                            sh """
                                 
