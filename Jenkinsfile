@@ -13,7 +13,7 @@ pipeline {
 		     sh '''
 			    mkdir -p /tmp/demo
 			    ls -lrt
-		    	    cp ${workspace}/spec.yml /tmp/demo
+		    	    #cp ${workspace}/spec.yml /tmp/demo
 		            cp ${workspace}/Dockerfile /tmp/demp
 			    specFilePath = /tmp/demo/spec.yml
 			    cd /tmp/demo
