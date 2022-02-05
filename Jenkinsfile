@@ -30,7 +30,7 @@ pipeline {
 			    
 			    
 		    }
-		    }
+		    
      
   
     // Building Docker images
@@ -59,7 +59,8 @@ pipeline {
     }
 	    }
    
-	    }     
+	    }  
+	    }
     stage('deploying to ECS') {
         environment {
         CLUSTER_NAME = "newCluster"
