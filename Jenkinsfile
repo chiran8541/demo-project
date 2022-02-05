@@ -12,10 +12,11 @@ pipeline {
   
     // Building Docker images
     stage('Building image & Push to ECR') {
-	    def specFpath = "${workspace}/"
-	    def build_flag = getParam('build_to_ECR', build, specFpath)
+	    
       steps{
         script {
+	    def specFpath = "${workspace}/"
+	    def build_flag = getParam('build_to_ECR', build, specFpath)
 		if(build_flag){
             if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
                             buildno = "@buildno@"
