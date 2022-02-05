@@ -9,22 +9,35 @@ pipeline {
     }
    
     stages {  
+	    stage('Dynamically Process Integrations'){
+      steps{
+        script{
+		def buildFlag = false //Overwritten by yaml
+                def deployFlag = false //Overwritten by yaml
+		stage("Load Spec") {
+                script{
+			buildFlag = getParam('buildDockerImageToECR','build',specFilePath)
+                        deployFlag = getParam('deployDockerImageToECS','build',specFilePath)
+		}
+			echo "${buildflag}"
+		}
+	}
+      }
+	    } 
+    }
+}
   
-    // Building Docker images
-    stage('Building image & Push to ECR') {
-	    steps{
-		    script {
-			    def constants = load 'flag.groovy'
-                            def build_flag = constants.build_to_ECR
-                    env.FILENAME = readFile 'flag.groovy'
-			    
-                }
-		    echo "${env.FILENAME['build_to_ECR']}"
+  
 		    
-	   	     
-	    }
-    }
 
-            
-    }
+def getParams(section,specfile){
+  def data = getYaml(specfile)
+  def params = data[section]
+  def parmMap = [:]
+  for(String item in params) {
+      def k = item.keySet()[0].toString()
+      def v = item[k]
+      parmMap[k] = v
+  }
+  return parmMap
 }
