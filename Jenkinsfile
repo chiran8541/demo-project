@@ -15,8 +15,10 @@ pipeline {
 		    	    cp ${workspace}/spec.yml /tmp/demo
 		            cp ${workspace}/Dockerfile /tmp/demp
 			    specFilePath = /tmp/demo/spec.yml
-			    def buildflag = getParam('build_to_ECR','build',specFilePath)
-			    def buildflag = getParam('deploy_to_ECS','build',specFilePath)
+			    def buildflag = false 
+			    def deployflag = false
+			    buildflag= getParam('build_to_ECR','build',specFilePath)
+			    deployflag= getParam('deploy_to_ECS','build',specFilePath)
 			    
 		    }
 	    }
