@@ -15,8 +15,9 @@ pipeline {
 	    steps{
 		    script {
                     env.FILENAME = readFile 'spec.yml'
+			    
                 }
-		    echo "${env.FILENAME}"
+		    echo "${env.FILENAME['build_to_ECR']}"
 		    
 	   	     
 	    }
