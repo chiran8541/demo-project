@@ -25,7 +25,7 @@ pipeline {
 			    pwd
 		    	    cp spec.yml /tmp/demo
 		            cp Dockerfile /tmp/demo
-			    specFilePath = /tmp/demo/
+			    specFilePath = ${workspace}
 			    '''
 	    }
 	    }
