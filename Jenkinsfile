@@ -1,3 +1,4 @@
+def build_flag;
 pipeline {
     agent any
 	
@@ -12,11 +13,10 @@ pipeline {
   
     // Building Docker images
     stage('Building image & Push to ECR') {
-	    environment { 
-		    
-	            build_flag = false
-            }
-	    
+	   build_flag = readProperties file: "spec.yml"
+	    echo "the flag value is ${build_flag['build_to_ECR']}"
+    }
+	'''    
       steps{
         script {			
 		if(build_flag == True){
@@ -37,7 +37,7 @@ pipeline {
     }
     }
    
-        
+      
     stage('deploying to ECS') {
         environment {
         CLUSTER_NAME = "newCluster"
@@ -64,6 +64,7 @@ pipeline {
                                }
                             }
                         }
+			 ''' 
             
     }
 }
