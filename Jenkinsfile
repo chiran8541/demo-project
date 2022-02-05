@@ -19,7 +19,7 @@ pipeline {
 	    
       steps{
         script {			
-		if(build_flag){
+		if(build_flag == True){
             if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
                             buildno = "@buildno@"
                             currentbuildno = currentBuild.number
