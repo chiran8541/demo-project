@@ -8,27 +8,30 @@ pipeline {
     }
    
     stages {  
-	    
-	    stage('loading envfor flag') {
-		    steps{
-			    sh '''
+	    stage('pre-build') {
+		     sh '''
 			    mkdir -p /tmp/demo
 		    	    cp ${workspace}/spec.yml /tmp/demo
 		            cp ${workspace}/Dockerfile /tmp/demp
 			    specFilePath = /tmp/demo/spec.yml
+			    '''
+	    }
+	    
+	    stage('loading envfor flag') {
+		    script{
+			   
 			    def buildflag = false 
 			    def deployflag = false
 			    buildflag= getParam('build_to_ECR','build',specFilePath)
 			    deployflag= getParam('deploy_to_ECS','build',specFilePath)
 			    
-			    '''
 			    
 		    }
-	    }
+	    
      
   
     // Building Docker images
-	    if (buildflag){
+    if (buildflag){
     stage('Building image & Push to ECR') {
       steps{
         script {
@@ -53,7 +56,7 @@ pipeline {
     }
 	    }
    
-        
+	    }     
     stage('deploying to ECS') {
         environment {
         CLUSTER_NAME = "newCluster"
