@@ -9,12 +9,14 @@ pipeline {
    
     stages {  
 	    stage('pre-build') {
+		    steps {
 		     sh '''
 			    mkdir -p /tmp/demo
 		    	    cp ${workspace}/spec.yml /tmp/demo
 		            cp ${workspace}/Dockerfile /tmp/demp
 			    specFilePath = /tmp/demo/spec.yml
 			    '''
+	    }
 	    }
 	    
 	    stage('loading envfor flag') {
