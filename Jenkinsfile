@@ -17,10 +17,11 @@ pipeline {
 		    steps {
 		     sh '''
 			    mkdir -p /tmp/demo
-			    ls -lrt
-		    	    cp ${workspace}/trigger_job_master/spec.yml /tmp/demo
+			    ls ${workspace}
 			    pwd
-		            cp ${workspace}/Dockerfile /tmp/demp
+		    	    #cp ${workspace}/trigger_job_master/spec.yml /tmp/demo
+			    
+		            #cp ${workspace}/Dockerfile /tmp/demp
 			    specFilePath = /tmp/demo/spec.yml
 			    cd /tmp/demo
 			    ls -lrt
