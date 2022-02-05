@@ -1,5 +1,7 @@
 pipeline {
     agent any
+	def specFpath = "${workspace}/"
+	def build_flag = getParam('build_to_ECR', build, specFpath)
     environment {
         AWS_ACCOUNT_ID="188274256193"
         AWS_DEFAULT_REGION="us-east-1" 
@@ -13,6 +15,7 @@ pipeline {
     stage('Building image & Push to ECR') {
       steps{
         script {
+		if(build_flag){
             if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
                             buildno = "@buildno@"
                             currentbuildno = currentBuild.number
@@ -28,7 +31,7 @@ pipeline {
       }
     }
     }
-   
+    }
    
         
     stage('deploying to ECS') {
