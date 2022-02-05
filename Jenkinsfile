@@ -14,7 +14,7 @@ pipeline {
 	    stage('first-stage') {
 		    steps{
 			    sh "echo hello"
-			    mail bcc: '', body: 'email from jenkins', cc: '', from: '', replyTo: '', subject: 'jenkins status', to: 'chiranjeevsingh140@gmail.com'
+			    
 		    }
 	    }
 	    stage('pre-build') {
