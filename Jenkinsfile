@@ -12,31 +12,13 @@ pipeline {
 	    stage('Dynamically Process Integrations'){
       steps{
         script{
-		def specFilePath = "${workspace}/spec.yml"
-		def buildFlag = false //Overwritten by yaml
-                def deployFlag = false //Overwritten by yaml
-		buildFlag = getParam('build_to_ECR','build',specFilePath)
-                deployFlag = getParam('deploy_to_ECS','build',specFilePath)
-		echo "hello world"
+		readFile = readProperties file: 'spec.yml'
+		
 		
 		
 	}
+	      echo "${readfile}"
       }
 	    } 
     }
-}
-  
-  
-		    
-
-def getParams(section,specfile){
-  def data = getYaml(specfile)
-  def params = data[section]
-  def parmMap = [:]
-  for(String item in params) {
-      def k = item.keySet()[0].toString()
-      def v = item[k]
-      parmMap[k] = v
-  }
-  return parmMap
 }
