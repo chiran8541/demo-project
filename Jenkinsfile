@@ -1,4 +1,3 @@
-def build_flag;
 pipeline {
     agent any
 	
