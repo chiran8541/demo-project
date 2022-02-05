@@ -1,6 +1,6 @@
 {
 	"flag": [{
-		"buildFlag": false,
+		"build_toECR": false,
 		"deploy_toECS": false
 	}]
 }
