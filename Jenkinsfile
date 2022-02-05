@@ -23,6 +23,7 @@ pipeline {
 		    	    cp spec.yml /tmp/demo
 		            cp Dockerfile /tmp/demo
 			    cd /tmp/demo
+			    pwd
 			    ls -lrt
 			    specFilePath = /tmp/demo/spec.yml
 			    '''
