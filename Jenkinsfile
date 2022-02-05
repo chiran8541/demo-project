@@ -1,3 +1,4 @@
+def readfile;
 pipeline {
     agent any
 	
