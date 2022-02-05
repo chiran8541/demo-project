@@ -5,6 +5,9 @@ pipeline {
         AWS_DEFAULT_REGION="us-east-1" 
         IMAGE_REPO_NAME="beforeprod"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+	buildflag = false
+	deployflag = false
+	    
     }
    
     stages {  
@@ -22,10 +25,7 @@ pipeline {
 			    pwd
 		    	    cp spec.yml /tmp/demo
 		            cp Dockerfile /tmp/demo
-			    cd /tmp/demo
-			    pwd
-			    ls -lrt
-			    specFilePath = /tmp/demo/spec.yml
+			    specFilePath = /tmp/demo/
 			    '''
 	    }
 	    }
@@ -33,9 +33,6 @@ pipeline {
 	    stage('loading envfor flag') {
 		    steps{
 		    script{
-			   
-			    def buildflag = false 
-			    def deployflag = false
 			    buildflag= getParam('build_to_ECR','build',specFilePath)
 			    deployflag= getParam('deploy_to_ECS','build',specFilePath)
 			    
@@ -51,7 +48,7 @@ pipeline {
     stage('Building image & Push to ECR') {
       steps{
         script {
-		if (buildflag){
+		if (${buildflag}){
             if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
                             buildno = "@buildno@"
                             currentbuildno = currentBuild.number
