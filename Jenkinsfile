@@ -25,7 +25,7 @@ pipeline {
 			    pwd
 		    	    cp spec.yml /tmp/demo
 		            cp Dockerfile /tmp/demo
-			    specFilePath = ${workspace}
+			    specFilePath = /var/lib/jenkins/workspace/trigger_job_master/
 			    '''
 	    }
 	    }
