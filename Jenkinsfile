@@ -18,7 +18,7 @@ pipeline {
 		     sh '''
 			    mkdir -p /tmp/demo
 			    ls ${workspace}
-			    cat ${workspace}/spec.yml
+			    cat spec.yml
 			    pwd
 		    	    #cp ${workspace}/trigger_job_master/spec.yml /tmp/demo
 			    
