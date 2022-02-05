@@ -5,58 +5,19 @@ pipeline {
         AWS_DEFAULT_REGION="us-east-1" 
         IMAGE_REPO_NAME="beforeprod"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-	buildflag = false
-	deployflag = false
-	    
     }
    
     stages {  
-	    stage('first-stage') {
-		    steps{
-			    sh "echo hello"
-			    
-		    }
-	    }
-	    stage('pre-build') {
-		    steps {
-		     sh '''
-			    mkdir -p /tmp/demo
-			    ls ${workspace}
-			    cat spec.yml
-			    pwd
-		    	    cp spec.yml /tmp/demo
-		            cp Dockerfile /tmp/demo
-			    #specFilePath = /var/lib/jenkins/workspace/trigger_job_master/
-			    '''
-	    }
-	    }
-	    
-	    stage('loading envfor flag') {
-		    steps{
-		    script{
-			    buildflag= getParam('build_to_ECR','build',${workspace} )
-			    deployflag= getParam('deploy_to_ECS','build',${workspace})
-			    
-			    
-		    }
-		    }
-	    }
-		    
-     
   
     // Building Docker images
-    
     stage('Building image & Push to ECR') {
       steps{
         script {
-		if (${buildflag}){
             if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
                             buildno = "@buildno@"
                             currentbuildno = currentBuild.number
             sh """
-                    
-		    cd /tmp/demo
-		    sed -i -e 's#${buildno}#${currentbuildno}#' update-td.json
+                    sed -i -e 's#${buildno}#${currentbuildno}#' update-td.json
 		    pwd
                     docker build -t "${IMAGE_REPO_NAME}:V-${BUILD_NUMBER}" .
                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com"
@@ -67,9 +28,9 @@ pipeline {
       }
     }
     }
-	    }
    
-	    
+   
+        
     stage('deploying to ECS') {
         environment {
         CLUSTER_NAME = "newCluster"
