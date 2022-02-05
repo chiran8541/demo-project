@@ -14,13 +14,11 @@ pipeline {
         script{
 		def buildFlag = false //Overwritten by yaml
                 def deployFlag = false //Overwritten by yaml
-		stage("Load Spec") {
-                script{
-			buildFlag = getParam('buildDockerImageToECR','build',specFilePath)
-                        deployFlag = getParam('deployDockerImageToECS','build',specFilePath)
-		}
-			echo "${buildflag}"
-		}
+		echo "${buildflag}"
+		buildFlag = getParam('buildDockerImageToECR','build',specFilePath)
+                deployFlag = getParam('deployDockerImageToECS','build',specFilePath)
+		echo "${buildflag}"
+		
 	}
       }
 	    } 
