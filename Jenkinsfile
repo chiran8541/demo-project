@@ -20,6 +20,7 @@ pipeline {
 	    }
 	    
 	    stage('loading envfor flag') {
+		    steps{
 		    script{
 			   
 			    def buildflag = false 
@@ -29,7 +30,7 @@ pipeline {
 			    
 			    
 		    }
-	    
+		    }
      
   
     // Building Docker images
