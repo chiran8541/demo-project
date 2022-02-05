@@ -18,7 +18,7 @@ pipeline {
 		     sh '''
 			    mkdir -p /tmp/demo
 			    ls -lrt
-		    	    #cp ${workspace}/spec.yml /tmp/demo
+		    	    cp ${workspace}/trigger_job_master/spec.yml /tmp/demo
 			    pwd
 		            cp ${workspace}/Dockerfile /tmp/demp
 			    specFilePath = /tmp/demo/spec.yml
