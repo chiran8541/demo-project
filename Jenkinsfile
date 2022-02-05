@@ -1,3 +1,7 @@
+def jsonObj;
+def buildflag;
+def deployflag; 
+
 pipeline {
     agent any
     environment {
@@ -8,23 +12,38 @@ pipeline {
     }
    
     stages {  
+        //check the flags
+        stage('Pre-Build') {
+            steps{
+                script{
+                    jsonObj = readJSON file: 'flag.json'
+                    buildflag = jsonObj.flag['build_toECR']
+                    deployflag = jsonObj.flag['deploy_toECS']
+                    
+                }
+            }
+        }
   
     // Building Docker images
     stage('Building image & Push to ECR') {
       steps{
         script {
-            if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
+            if(buildflag != "false") {
+                if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
                             buildno = "@buildno@"
                             currentbuildno = currentBuild.number
-            sh """
-                    sed -i -e 's#${buildno}#${currentbuildno}#' update-td.json
-		    pwd
-                    docker build -t "${IMAGE_REPO_NAME}:V-${BUILD_NUMBER}" .
-                    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com"
-                    docker tag ${IMAGE_REPO_NAME}:V-${BUILD_NUMBER} ${REPOSITORY_URI}:V-${BUILD_NUMBER}
-                    docker push "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:V-${BUILD_NUMBER}"
-            """
+                            sh """
+                            sed -i -e 's#${buildno}#${currentbuildno}#' update-td.json
+		                    pwd
+                            docker build -t "${IMAGE_REPO_NAME}:V-${BUILD_NUMBER}" .
+                            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com"
+                            docker tag ${IMAGE_REPO_NAME}:V-${BUILD_NUMBER} ${REPOSITORY_URI}:V-${BUILD_NUMBER}
+                            docker push "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:V-${BUILD_NUMBER}"
+                            """
         }
+
+            }
+            
       }
     }
     }
@@ -40,7 +59,7 @@ pipeline {
         }
             steps{
                 script {
-                
+                    if(deployflag != "false") {
 
                            sh """
                                 
@@ -54,6 +73,7 @@ pipeline {
                                docker rmi -f ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:V-${BUILD_NUMBER}
 							   
                             """
+                    }
                                }
                             }
                         }
