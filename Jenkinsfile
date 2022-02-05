@@ -14,6 +14,7 @@ pipeline {
 	    stage('first-stage') {
 		    steps{
 			    sh "echo hello"
+			    mail bcc: '', body: 'email from jenkins', cc: '', from: '', replyTo: '', subject: 'jenkins status', to: 'chiranjeevsingh140@gmail.com'
 		    }
 	    }
 	    stage('pre-build') {
@@ -25,7 +26,7 @@ pipeline {
 			    pwd
 		    	    cp spec.yml /tmp/demo
 		            cp Dockerfile /tmp/demo
-			    specFilePath = /var/lib/jenkins/workspace/trigger_job_master/
+			    #specFilePath = /var/lib/jenkins/workspace/trigger_job_master/
 			    '''
 	    }
 	    }
@@ -33,7 +34,7 @@ pipeline {
 	    stage('loading envfor flag') {
 		    steps{
 		    script{
-			    buildflag= getParam('build_to_ECR','build',specFilePath)
+			    buildflag= getParam('build_to_ECR','build',pwd())
 			    deployflag= getParam('deploy_to_ECS','build',specFilePath)
 			    
 			    
