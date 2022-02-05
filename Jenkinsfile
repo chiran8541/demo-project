@@ -20,9 +20,8 @@ pipeline {
 			    ls ${workspace}
 			    cat spec.yml
 			    pwd
-		    	    #cp ${workspace}/trigger_job_master/spec.yml /tmp/demo
-			    
-		            #cp ${workspace}/Dockerfile /tmp/demp
+		    	    cp spec.yml /tmp/demo
+		            cp Dockerfile /tmp/demp
 			    specFilePath = /tmp/demo/spec.yml
 			    cd /tmp/demo
 			    ls -lrt
