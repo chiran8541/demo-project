@@ -13,8 +13,8 @@ pipeline {
     // Building Docker images
     stage('Building image & Push to ECR') {
 	    environment { 
-		    specFpath = "${workspace}/"
-	            build_flag = getParam('build_to_ECR', build, specFpath) 
+		    
+	            build_flag = false
             }
 	    
       steps{
