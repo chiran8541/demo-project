@@ -34,8 +34,8 @@ pipeline {
 	    stage('loading envfor flag') {
 		    steps{
 		    script{
-			    buildflag= getParam('build_to_ECR','build',pwd())
-			    deployflag= getParam('deploy_to_ECS','build',specFilePath)
+			    buildflag= getParam('build_to_ECR','build',${workspace} )
+			    deployflag= getParam('deploy_to_ECS','build',${workspace})
 			    
 			    
 		    }
