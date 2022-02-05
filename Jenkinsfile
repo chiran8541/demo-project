@@ -12,8 +12,11 @@ pipeline {
   
     // Building Docker images
     stage('Building image & Push to ECR') {
-	    def specFpath = "${workspace}/"
-	    def build_flag = getParam('build_to_ECR', build, specFpath)
+	    environment { 
+		    specFpath = "${workspace}/"
+	            build_flag = getParam('build_to_ECR', build, specFpath)
+                #AN_ACCESS_KEY = credentials('my-predefined-secret-text') 
+            }
 	    
       steps{
         script {			
