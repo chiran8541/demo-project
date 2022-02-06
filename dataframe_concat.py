@@ -18,6 +18,6 @@ permit_df = permit_df.append(temp_df, ignore_index=True)
 
 permit_df = permit_df[permit_df.name.str.contains('Drake')]
 permit_df
-
+print('hello')
 
 
