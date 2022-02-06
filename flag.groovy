@@ -1,6 +1,6 @@
 import groovy.transform.Field
 
 @Field
-def build_to_ECR = nn
+def build_to_ECR = true
 
 return this;
