@@ -14,9 +14,9 @@
       "entryPoint": [],
       "portMappings": [
         {
-          "hostPort": 5000,
+          "hostPort": 5002,
           "protocol": "tcp",
-          "containerPort": 5000
+          "containerPort": 5002
         }
       ],
       "volumesFrom": [],
