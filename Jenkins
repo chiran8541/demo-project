@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    
+    stages{
+        stage(checkout){
+            steps{
+                script{
+                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/chiran8541/remedy-project.git']]])
+                }
+            }
+        }
+        stage(auto){
+            steps{
+                script{
+                    if(changeDetected("Cloudformation/")){
+                        sh "echo Hello from in function"
+                    }
+                    else{
+                        echo "Change not detected in this folder :" + folder
+                    }
+                    
+                    }
+                }
+            }
+            
+            
+        
+    }
+}    
+def changeDetected(path){
+  // check if a change occurred in this folders codebase only
+  // if there is a change to the sourcecode then 
+  // try to initiate a new build of the image
+  def rc = sh(
+    // returns a list of changed files since last commit
+    // grep filters down to this particular directory
+    script: "git diff --name-only HEAD HEAD~1 | grep ${path}",
+    returnStatus: true
+  )
+  return !rc
+}
