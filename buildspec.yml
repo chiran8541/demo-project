@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install: 
+    runtime-versions:
+      python: 3.7
+      
+  pre_build:
+    commands:
+      pip install flask
+  build:
+    commands:
+      #This build is happening on `Date`
+
+  post_build:
+    commands:
+      - python3.7 app.py
+
+      
+
+artifacts:
+  files:
+    - 'app.py'
+    
