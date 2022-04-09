@@ -8,9 +8,7 @@ phases:
   pre_build:
     commands:
       pip install flask
-  build:
-    commands:
-      #This build is happening on this `Date`
+  
 
   post_build:
     commands:
