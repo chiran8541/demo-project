@@ -1,22 +1,19 @@
 version: 0.2
 
 phases:
-  install: 
-    runtime-versions:
-      python: 3.7
-      
   pre_build:
     commands:
-      pip install flask
-  
-
+      - echo logging in to AWS ECR...
+      - docker info
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 188274256193.dkr.ecr.us-east-1.amazonaws.com
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the docker image
+      - docker build -t python-cicd .
+      - docker tag python-cicd:latest 188274256193.dkr.ecr.us-east-1.amazonaws.com/python-cicd:latest
   post_build:
     commands:
-      - python3.7 app.py
-
-      
-
-artifacts:
-  files:
-    - 'app.py'
-    
+      - echo build completed on `date`
+      - echo Pushing docker image to ECR Repo
+      - docker push 188274256193.dkr.ecr.us-east-1.amazonaws.com/python-cicd:latest
