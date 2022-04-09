@@ -1,7 +1,8 @@
 version: 0.2
 env:
-  variables:
-    token: '{{resolve::secretsmanager:Docker_Access:SecretString:Docker_Access_Token}}'
+  secrets-manager:
+    token: "Docker_Access:Docker_Access_Token"
+  
 phases:
   pre_build:
     commands:
@@ -10,8 +11,8 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 188274256193.dkr.ecr.us-east-1.amazonaws.com
   build:
     commands:
-      - echo Build started on `date`
-      - docker login -u myusername --password-stdin < $token
+      - echo Build starlogin on `date`
+      - docker login -u cj1997 -p $token
       - echo Building the docker image
       - docker build -t python-cicd .
       - docker tag python-cicd:latest 188274256193.dkr.ecr.us-east-1.amazonaws.com/python-cicd:latest
