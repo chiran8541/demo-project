@@ -1,7 +1,7 @@
 version: 0.2
 env:
   variables:
-    token: '{{resolve::secretsmanager:Docker_Access:SecretString:DOCKER_ACCESS_TOKEN}}'
+    token: '{{resolve::secretsmanager:Docker_Access:SecretString:Docker_Access_Token}}'
 phases:
   pre_build:
     commands:
